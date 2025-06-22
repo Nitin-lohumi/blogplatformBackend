@@ -1,0 +1,10 @@
+const express = require('express');
+const files = express.Router();
+require("../config/CloudinaryConfig");
+const validateImage = require("../middleware/ValidateImage");
+const UploadProfileImage = require("../controlers/UploadProfileImage");
+const validatePost = require("../middleware/validatePost");
+const uploadPost = require("../controlers/uploadPost");
+files.post('/Profile/:id',validateImage,UploadProfileImage);
+files.post("/post/:id",validatePost,uploadPost);
+module.exports = files;
