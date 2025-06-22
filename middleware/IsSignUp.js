@@ -13,5 +13,4 @@ const validateSignUp =(req,res,next)=>{
     }
     next();
 }
-  
 module.exports = validateSignUp;

@@ -10,23 +10,26 @@ const passport = require('passport');
 const path = require("path");
 const files = require("../routes/UpLoadFiles");
 const getpost = require("../routes/PostRoutes");
-const DeleteRoute =require("../routes/DeletePost");
+const DeleteRoute = require("../routes/DeletePost");
 app.use('../ProfileImage', express.static(path.join(__dirname, '../ProfileImage')));
 app.use(cors({
-  origin:"http://localhost:5173",
-  methods:"GET,POST,PUT,DELETE",
+  origin: [
+    'http://localhost:5173',
+    'http://blogplatform-frontend.s3-website.eu-north-1.amazonaws.com'
+  ],
+  methods: "GET,POST,PUT,DELETE",
   credentials: true,
 })
 );
 app.use(session({
-  secret:"hcuiasgdcv12h321g2e91",
-  resave:false,
-  saveUninitialized:true,
+  secret: "hcuiasgdcv12h321g2e91",
+  resave: false,
+  saveUninitialized: true,
   cookie: {
-    maxAge: 24 * 60 * 60 * 1000, 
+    maxAge: 24 * 60 * 60 * 1000,
     sameSite: 'lax',
     httpOnly: true,
-    secure: false, 
+    secure: false,
   },
 }));
 
@@ -38,15 +41,15 @@ app.use(passport.session());
 
 app.use(express.json({ limit: '50mb' }));
 
-app.use('/auth',router);
-app.use('/upload',files);
-app.use('/posts',getpost);
-app.use('/delete',DeleteRoute);
+app.use('/auth', router);
+app.use('/upload', files);
+app.use('/posts', getpost);
+app.use('/delete', DeleteRoute);
 
-app.get('/',(req,res)=>{
+app.get('/', (req, res) => {
   res.send("helllo world");
 });
 
-app.listen(process.env.PORT,()=>{
-  console.log("listing at port number ",process.env.PORT);
+app.listen(process.env.PORT, () => {
+  console.log("listing at port number ", process.env.PORT);
 })
