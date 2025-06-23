@@ -30,7 +30,7 @@ const ManualLogin = async (req, res) => {
       .cookie("token", token, {
         httpOnly: true,
         // secure: true, // 🔐 Only over HTTPS
-        // sameSite: "", // 🔄 Allow cross-origin cookies
+        sameSite: "None", // 🔄 Allow cross-origin cookies
         maxAge: 24 * 60 * 60 * 1000, // 1 day
       })
       .status(200)
