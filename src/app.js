@@ -25,17 +25,17 @@ app.use(cors({
 }));
 
 // Configure session for login tracking
-app.use(session({
-  secret: "hcuiasgdcv12h321g2e91",
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    maxAge: 24 * 60 * 60 * 1000, // 1 day
-    sameSite: 'none',
-    httpOnly: true,
-    secure: true, // keep false for now (unless you're using HTTPS)
-  },
-}));
+// app.use(session({
+//   secret: "hcuiasgdcv12h321g2e91",
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: {
+//     maxAge: 24 * 60 * 60 * 1000, // 1 day
+//     sameSite: 'none',
+//     httpOnly: true,
+//     secure: true, // keep false for now (unless you're using HTTPS)
+//   },
+// }));
 
 // Parse incoming requests
 app.use(express.json({ limit: '50mb' }));
