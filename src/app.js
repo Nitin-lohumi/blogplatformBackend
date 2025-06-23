@@ -9,7 +9,8 @@ const path = require("path");
 const files = require("../routes/UpLoadFiles");
 const getpost = require("../routes/PostRoutes");
 const DeleteRoute = require("../routes/DeletePost");
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
 // Serve static files
 app.use('/ProfileImage', express.static(path.join(__dirname, '../ProfileImage')));
 
@@ -22,7 +23,6 @@ app.use(cors({
   methods: "GET,POST,PUT,DELETE",
   credentials: true,
 }));
-app.use(cookieParser());
 
 // Configure session for login tracking
 app.use(session({
