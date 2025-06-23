@@ -14,16 +14,15 @@ const SignUp = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ name, email, password: hashedPassword });
     await newUser.save();
-    req.session.user = {
-      _id: newUser._id,
-      name: newUser.name,
-      email: newUser.email,
-    };
+    // req.session.user = {
+    //   _id: newUser._id,
+    //   name: newUser.name,
+    //   email: newUser.email,
+    // };
 
     res.status(201).json({
       msg: "Signup successful",
       status: true,
-      user: req.session.user,
     });
   } catch (error) {
     console.error("Signup Error:", error);
