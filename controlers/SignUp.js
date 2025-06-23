@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 
 const SignUp = async (req, res) => {
   try {
-    const { name, email, password } = req.body;s
+    const { name, email, password } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(409).json({
