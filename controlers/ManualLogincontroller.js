@@ -26,24 +26,22 @@ const ManualLogin = async (req, res) => {
     );
 
     // Send token in secure cookie
-    res
-      .cookie("token", token, {
-        httpOnly: true,
-        secure: true, // 🔐 Only over HTTPS
-        sameSite: "None", // 🔄 Allow cross-origin cookies
-        maxAge: 24 * 60 * 60 * 1000, // 1 day
-      })
-      .status(200)
-      .json({
-        msg: "Login successful",
-        status: true,
-        user: { name: user.name, email: user.email }, 
-      });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false, // ⚠️ only use for development (HTTP)
+      sameSite: "Lax", // or "None" with secure if you're using HTTPS
+      maxAge: 24 * 60 * 60 * 1000,
+    }).status(200)
+  .json({
+    msg: "Login successful",
+    status: true,
+    user: { name: user.name, email: user.email },
+  });
 
   } catch (error) {
-    console.error("Login error:", error);
-    res.status(500).json({ msg: "Internal Server Error", status: false });
-  }
+  console.error("Login error:", error);
+  res.status(500).json({ msg: "Internal Server Error", status: false });
+}
 };
 
 module.exports = ManualLogin;
