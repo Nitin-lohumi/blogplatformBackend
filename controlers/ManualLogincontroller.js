@@ -24,7 +24,7 @@ const ManualLogin = async (req, res) => {
     res
       .cookie("token", token, {
         httpOnly: true,
-        secure: true, // set to false in localhost, true in production with HTTPS
+        secure: false, // set to false in localhost, true in production with HTTPS
         sameSite: "None", // "Strict" or "Lax" for local, "None" for cross-origin
         maxAge: 24 * 60 * 60 * 1000,
       })
