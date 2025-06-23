@@ -5,43 +5,32 @@ const User = require("../model/user_model");
 const ManualLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
-
-    // Check user existence
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({ msg: "User not found", status: false });
     }
 
-    // Validate password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({ msg: "Invalid credentials", status: false });
     }
 
-    // Create JWT
     const token = jwt.sign(
       { id: user._id, email: user.email, name: user.name },
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
 
-    // Send token in secure cookie
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: false, // ⚠️ only use for development (HTTP)
-      sameSite: "Lax", // or "None" with secure if you're using HTTPS
-      maxAge: 24 * 60 * 60 * 1000,
-    }).status(200)
-  .json({
-    msg: "Login successful",
-    status: true,
-    user: { name: user.name, email: user.email },
-  });
-
+    res.status(200).json({
+      msg: "Login successful",
+      status: true,
+      token,
+      user: { id: user._id, name: user.name, email: user.email },
+    });
   } catch (error) {
-  console.error("Login error:", error);
-  res.status(500).json({ msg: "Internal Server Error", status: false });
-}
+    console.error("Login error:", error);
+    res.status(500).json({ msg: "Internal Server Error", status: false });
+  }
 };
 
 module.exports = ManualLogin;
