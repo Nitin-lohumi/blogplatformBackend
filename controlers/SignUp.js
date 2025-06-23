@@ -3,9 +3,7 @@ const bcrypt = require('bcryptjs');
 
 const SignUp = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
-
-    // Check if user already exists
+    const { name, email, password } = req.body;s
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(409).json({
@@ -13,15 +11,9 @@ const SignUp = async (req, res) => {
         status: false
       });
     }
-
-    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create and save user
     const newUser = new User({ name, email, password: hashedPassword });
     await newUser.save();
-
-    // Store user in session (if session-based auth)
     req.session.user = {
       _id: newUser._id,
       name: newUser.name,

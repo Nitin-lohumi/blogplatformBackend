@@ -31,7 +31,7 @@ app.use(session({
   saveUninitialized: true,
   cookie: {
     maxAge: 24 * 60 * 60 * 1000, // 1 day
-    sameSite: 'lax',
+    sameSite: 'none',
     httpOnly: true,
     secure: false, // keep false for now (unless you're using HTTPS)
   },
@@ -53,6 +53,6 @@ app.get('/', (req, res) => {
 });
 
 // Start server
-app.listen(process.env.PORT, () => {
-  console.log("listening at port number", process.env.PORT);
+app.listen(process.env.PORT, "0.0.0.0", () => {
+  console.log("Listening on port", process.env.PORT);
 });
