@@ -6,7 +6,7 @@ const validateSignUp = require('../middleware/IsSignUp');
 const SignUp = require("../controlers/SignUp");
 const validateManualLogin = require('../middleware/IsLoginUser');
 const ManualLogin = require("../controlers/ManualLogincontroller");
-
+const verfiy = require("../middleware/ValidateJWT");
 // router.get('/google',passport.authenticate('google', { scope: ['profile', 'email'] }));
 // router.get('/google/callback', 
 //   passport.authenticate('google',{
@@ -15,11 +15,11 @@ const ManualLogin = require("../controlers/ManualLogincontroller");
 //   })
 // );
 
-router.get('/ShowUser', auth.loginSuccess);  
+router.get('/ShowUser', verfiy, auth.loginSuccess);
 
-router.post('/signup',validateSignUp,SignUp);
+router.post('/signup', validateSignUp, SignUp);
 
-router.post("/ManualLogin",validateManualLogin,ManualLogin);
+router.post("/ManualLogin", validateManualLogin, ManualLogin);
 
 router.get('/logout', auth.logout);
 
